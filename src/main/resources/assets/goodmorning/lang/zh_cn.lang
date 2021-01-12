@@ -1,0 +1,9 @@
+config.goodmorning.show=启用模组
+config.goodmorning.addOneDay=加一天
+config.goodmorning.title=标题
+config.goodmorning.subtitle=副标题
+
+config.goodmorning.show.tooltip=启用模组后,玩家起床时屏幕中央会显示信息
+config.goodmorning.addOneDay.tooltip=是否要在显示的日期上加上一天,\n§e原版Minecraft从第0天开始
+config.goodmorning.title.tooltip=显示的信息的第一行,\n§e@PLAYER@将会被替换为玩家名,\n§e@DATE@将会被替换为游戏内的日期,\n§e\u将会被替换为分节符（就是样式代码那个符号）.\n§e你可以添加多个随机标题
+config.goodmorning.subtitle.tooltip=显示的信息的第二行,\n§e@PLAYER@将会被替换为玩家名,\n§e@DATE@将会被替换为游戏内的日期,\n§e\u将会被替换为分节符（就是样式代码那个符号）.\n§e你可以添加多个随机副标题

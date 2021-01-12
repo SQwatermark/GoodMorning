@@ -1,0 +1,16 @@
+[
+{
+  "modid": "goodmorning",
+  "name": "Good Morning",
+  "description": "Show title on player wake up.",
+  "version": "1.0",
+  "mcversion": "",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["SQwatermark"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
