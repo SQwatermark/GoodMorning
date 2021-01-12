@@ -1,6 +1,7 @@
 package moe.sqwatermark.goodmorning;
 
 import net.minecraftforge.common.ForgeConfigSpec;
+import org.spongepowered.asm.mixin.Mixin;
 
 import java.util.ArrayList;
 import java.util.List;
