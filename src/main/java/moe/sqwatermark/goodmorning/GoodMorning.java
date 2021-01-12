@@ -21,7 +21,7 @@ public class GoodMorning {
 
     public static final String MOD_ID = "goodmorning";
     public static final String MOD_NAME = "Good Morning";
-    public static final String VERSION = "1.0";
+    public static final String VERSION = "1.12.2-1.0";
 
     @SubscribeEvent
     public static void onPlayerWakeUp(PlayerWakeUpEvent event) {
