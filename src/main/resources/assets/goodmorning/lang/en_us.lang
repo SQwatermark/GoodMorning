@@ -1,9 +1,0 @@
-config.goodmorning.show=Enable
-config.goodmorning.addOneDay=Add one day
-config.goodmorning.title=Title
-config.goodmorning.subtitle=Subtitle
-
-config.goodmorning.show.tooltip=Enable the mod
-config.goodmorning.addOneDay.tooltip=Whether to add one day to the shown date.\n§eDefault Minecraft starts at day 0
-config.goodmorning.title.tooltip=The first line of the shown information,\n§e@PLAYER@ will be replaced with the player name,\n§e@DATE@ will be replaced with the in game date,\n§e\u will be replaced with section sign.\n§eYou can add more than one random titles
-config.goodmorning.subtitle.tooltip=The second line of the shown information,\n§e@PLAYER@ will be replaced with the player name,\n§e@DATE@ will be replaced with the in game date,\n§e\u will be replaced with section sign.\n§eYou can add more than one random subtitles

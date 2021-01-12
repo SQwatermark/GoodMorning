@@ -1,76 +1,63 @@
 package moe.sqwatermark.goodmorning;
 
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.network.play.server.SPacketTitle;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraftforge.common.config.Config;
-import net.minecraftforge.common.config.ConfigManager;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.network.play.server.STitlePacket;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.config.ModConfig;
+
+import java.util.List;
 
 @Mod.EventBusSubscriber
-@Mod(
-        modid = GoodMorning.MOD_ID,
-        name = GoodMorning.MOD_NAME,
-        version = GoodMorning.VERSION,
-        acceptableRemoteVersions = "*",
-        guiFactory = "moe.sqwatermark.goodmorning.GuiFactory")
+@Mod(GoodMorning.MOD_ID)
 public class GoodMorning {
 
+    public GoodMorning() {
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, GoodMorningConfig.COMMON_CONFIG);
+    }
+
     public static final String MOD_ID = "goodmorning";
-    public static final String MOD_NAME = "Good Morning";
-    public static final String VERSION = "1.0";
 
     @SubscribeEvent
     public static void onPlayerWakeUp(PlayerWakeUpEvent event) {
-        if (ModConfig.show) {
-            if (event.getEntityPlayer() instanceof EntityPlayerMP) {
-                EntityPlayerMP entityplayermp = (EntityPlayerMP) event.getEntityPlayer();
+        if (GoodMorningConfig.SHOW.get()) {
+            if (event.getPlayer() instanceof ServerPlayerEntity) {
+                ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) event.getPlayer();
                 // 在玩家进入服务器的一瞬间似乎connection是null的
-                if (entityplayermp.connection != null) {
-                    long time = entityplayermp.world.getWorldTime();
+                if (serverPlayerEntity.connection != null) {
+                    long time = serverPlayerEntity.world.getDayTime();
                     if (time % 24000L == 0) {
                         // 确定日期
                         int date = (int)(time / 24000L);
-                        if (ModConfig.addOneDay) date += 1;
+                        if (GoodMorningConfig.ADD_ONE_DAY.get()) date += 1;
                         // 确定标题
                         String title = "";
-                        if (ModConfig.title.length > 0) {
-                            title = ModConfig.title[(int)(Math.random()*ModConfig.title.length)]
+                        List<String> titles = GoodMorningConfig.TITLE.get();
+                        if (titles.size() > 0) {
+                            title = titles.get((int)(Math.random()* titles.size()))
                                     .replace("@DATE@", String.valueOf(date))
-                                    .replace("@PLAYER@", entityplayermp.getName())
+                                    .replace("@PLAYER@", serverPlayerEntity.getName().getString())
                                     .replace("\\u", "§");
                         }
                         // 确定副标题
                         String subtitle = "";
-                        if (ModConfig.subtitle.length > 0) {
-                            subtitle = ModConfig.subtitle[(int)(Math.random()*ModConfig.subtitle.length)]
+                        List<String> subtitles = GoodMorningConfig.SUBTITLE.get();
+                        if (subtitles.size() > 0) {
+                            subtitle = subtitles.get((int)(Math.random()* subtitles.size()))
                                     .replace("@DATE@", String.valueOf(date))
-                                    .replace("@PLAYER@", entityplayermp.getName())
+                                    .replace("@PLAYER@", serverPlayerEntity.getName().getString())
                                     .replace("\\u", "§");
                         }
                         // 发送标题和副标题
-                        SPacketTitle spackettitle = new SPacketTitle(SPacketTitle.Type.TITLE, new TextComponentString(title));
-                        SPacketTitle spacketsubtitle = new SPacketTitle(SPacketTitle.Type.SUBTITLE, new TextComponentString(subtitle));
-                        entityplayermp.connection.sendPacket(spackettitle);
-                        entityplayermp.connection.sendPacket(spacketsubtitle);
+                        STitlePacket spackettitle = new STitlePacket(STitlePacket.Type.TITLE, new StringTextComponent(title));
+                        STitlePacket spacketsubtitle = new STitlePacket(STitlePacket.Type.SUBTITLE, new StringTextComponent(subtitle));
+                        serverPlayerEntity.connection.sendPacket(spackettitle);
+                        serverPlayerEntity.connection.sendPacket(spacketsubtitle);
                     }
                 }
-            }
-        }
-    }
-
-    /**
-     * 同步配置文件
-     */
-    @Mod.EventBusSubscriber(modid = GoodMorning.MOD_ID)
-    public static class ConfigSyncHandler {
-        @SubscribeEvent
-        public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
-            if (event.getModID().equals(GoodMorning.MOD_ID)) {
-                ConfigManager.sync(GoodMorning.MOD_ID, Config.Type.INSTANCE);
             }
         }
     }
