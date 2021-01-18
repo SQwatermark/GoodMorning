@@ -14,9 +14,14 @@ public final class ModConfig {
     public static boolean addOneDay = false;
 
     @Config.Comment({
+            "If true, a day will start at 00:00 but not 06:00, (useful when the mod somnia loaded)"
+    })
+    @Config.LangKey("config.goodmorning.dayStartAtMidnight")
+    public static boolean dayStartAtMidnight = true;
+
+    @Config.Comment({
             "The first line of the shown information,",
-            "@PLAYER@ will be replaced with the player name,",
-            "@DATE@ will be replaced with the in game date,",
+            "Useful placeholders: @PLAYER@, @DATE@, @HOUR@, @MINUTE@",
             "\\u will be replaced with §.",
             "You can add more than one random titles"
     })
@@ -25,8 +30,7 @@ public final class ModConfig {
 
     @Config.Comment({
             "The second line of the shown information,",
-            "@PLAYER@ will be replaced with the player name,",
-            "@DATE@ will be replaced with the in game date,",
+            "Useful placeholders: @PLAYER@, @DATE@, @HOUR@, @MINUTE@",
             "\\u will be replaced with §.",
             "You can add more than one random subtitles"
     })

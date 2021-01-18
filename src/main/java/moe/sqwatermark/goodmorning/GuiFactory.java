@@ -28,7 +28,7 @@ public class GuiFactory implements IModGuiFactory {
     public GuiScreen createConfigGui(GuiScreen parentScreen) {
         List<IConfigElement> childElements = ConfigElement.from(ModConfig.class).getChildElements();
         List<IConfigElement> sortedElements = new ArrayList<>();
-        String[] sort = {"show", "addOneDay", "title", "subtitle"};
+        String[] sort = {"show", "addOneDay", "dayStartAtMidnight", "title", "subtitle"};
         for (String s : sort) {
             for (IConfigElement childElement : childElements) {
                 if (childElement.getName().equals(s)) {

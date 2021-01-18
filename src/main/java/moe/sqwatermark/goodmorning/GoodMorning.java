@@ -1,5 +1,7 @@
 package moe.sqwatermark.goodmorning;
 
+import moe.sqwatermark.mccalender.MCCalender;
+import moe.sqwatermark.mccalender.TimeParser;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.play.server.SPacketTitle;
 import net.minecraft.util.text.TextComponentString;
@@ -22,7 +24,7 @@ public class GoodMorning {
 
     public static final String MOD_ID = "goodmorning";
     public static final String MOD_NAME = "Good Morning";
-    public static final String VERSION = "1.12.2-1.1";
+    public static final String VERSION = "1.12.2-1.2";
 
     @SubscribeEvent
     public static void onPlayerWakeUp(PlayerWakeUpEvent event) {
@@ -31,30 +33,31 @@ public class GoodMorning {
                 EntityPlayerMP entityplayermp = (EntityPlayerMP) event.getEntityPlayer();
                 // 在玩家进入服务器的一瞬间似乎connection是null的
                 if (entityplayermp.connection != null) {
-                    long time = entityplayermp.world.getWorldTime();
-                    int timeOfDay = (int)(time % 24000);
-                    if (Loader.isModLoaded("somnia") || timeOfDay == 0) {
+                    TimeParser parser = new TimeParser();
+                    if (ModConfig.dayStartAtMidnight) parser.setDayStartAtMidnight();
+                    MCCalender calender = parser.parse(entityplayermp.world.getWorldTime());
+                    if (Loader.isModLoaded("somnia") || (calender.getHour() == 6 && calender.getMinute() == 0)) {
                         // 确定日期
-                        int date = (int)(time / 24000L);
+                        int date = calender.getDate();
                         if (ModConfig.addOneDay) date += 1;
-//                        // 确定时间
-//                        int hour = timeOfDay < 6000 ? timeOfDay /1000 - 18 : timeOfDay + 6000 / 1000;
-//                        int minute = (int)(timeOfDay % 1000 / 16.667);
-//                        String sTime = getFormattedTime(date, hour, minute);
                         // 确定标题
                         String title = "";
                         if (ModConfig.title.length > 0) {
                             title = ModConfig.title[(int)(Math.random()*ModConfig.title.length)]
-                                    .replace("@DATE@", String.valueOf(date))
                                     .replace("@PLAYER@", entityplayermp.getName())
+                                    .replace("@DATE@", String.valueOf(date))
+                                    .replace("@HOUR@",  (calender.getHour() > 9 ? "" : "0") + calender.getHour())
+                                    .replace("@MINUTE@", (calender.getMinute() > 9 ? "" : "0") + calender.getMinute())
                                     .replace("\\u", "§");
                         }
                         // 确定副标题
                         String subtitle = "";
                         if (ModConfig.subtitle.length > 0) {
                             subtitle = ModConfig.subtitle[(int)(Math.random()*ModConfig.subtitle.length)]
-                                    .replace("@DATE@", String.valueOf(date))
                                     .replace("@PLAYER@", entityplayermp.getName())
+                                    .replace("@DATE@", String.valueOf(date))
+                                    .replace("@HOUR@",  (calender.getHour() > 9 ? "" : "0") + calender.getHour())
+                                    .replace("@MINUTE@", (calender.getMinute() > 9 ? "" : "0") + calender.getMinute())
                                     .replace("\\u", "§");
                         }
                         // 发送标题和副标题
@@ -67,15 +70,6 @@ public class GoodMorning {
             }
         }
     }
-
-//    public static String getFormattedTime(int date, int hour, int minute) {
-//        DateFormat df = new SimpleDateFormat("第dd日HH:mm");
-//        Date d = new Date();
-//        d.setDate(date);
-//        d.setHours(hour);
-//        d.setMinutes(minute);
-//        return df.format(d);
-//    }
 
     /**
      * 同步配置文件
