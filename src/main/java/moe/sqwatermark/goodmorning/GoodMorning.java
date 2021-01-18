@@ -11,10 +11,6 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 @Mod.EventBusSubscriber
 @Mod(
         modid = GoodMorning.MOD_ID,
@@ -26,7 +22,7 @@ public class GoodMorning {
 
     public static final String MOD_ID = "goodmorning";
     public static final String MOD_NAME = "Good Morning";
-    public static final String VERSION = "1.12.2-1.0";
+    public static final String VERSION = "1.12.2-1.1";
 
     @SubscribeEvent
     public static void onPlayerWakeUp(PlayerWakeUpEvent event) {
@@ -41,17 +37,16 @@ public class GoodMorning {
                         // 确定日期
                         int date = (int)(time / 24000L);
                         if (ModConfig.addOneDay) date += 1;
-                        // 确定时间
-                        int hour = timeOfDay < 6000 ? timeOfDay /1000 - 18 : timeOfDay + 6000 / 1000;
-                        int minute = (int)(timeOfDay % 1000 / 16.667);
-                        String sTime = getFormattedTime(date, hour, minute);
+//                        // 确定时间
+//                        int hour = timeOfDay < 6000 ? timeOfDay /1000 - 18 : timeOfDay + 6000 / 1000;
+//                        int minute = (int)(timeOfDay % 1000 / 16.667);
+//                        String sTime = getFormattedTime(date, hour, minute);
                         // 确定标题
                         String title = "";
                         if (ModConfig.title.length > 0) {
                             title = ModConfig.title[(int)(Math.random()*ModConfig.title.length)]
                                     .replace("@DATE@", String.valueOf(date))
                                     .replace("@PLAYER@", entityplayermp.getName())
-                                    .replace("@TIME@", sTime)
                                     .replace("\\u", "§");
                         }
                         // 确定副标题
@@ -60,7 +55,6 @@ public class GoodMorning {
                             subtitle = ModConfig.subtitle[(int)(Math.random()*ModConfig.subtitle.length)]
                                     .replace("@DATE@", String.valueOf(date))
                                     .replace("@PLAYER@", entityplayermp.getName())
-                                    .replace("@TIME@", sTime)
                                     .replace("\\u", "§");
                         }
                         // 发送标题和副标题
@@ -74,14 +68,14 @@ public class GoodMorning {
         }
     }
 
-    public static String getFormattedTime(int date, int hour, int minute) {
-        DateFormat df = new SimpleDateFormat("第dd日HH:mm");
-        Date d = new Date();
-        d.setDate(date);
-        d.setHours(hour);
-        d.setMinutes(minute);
-        return df.format(d);
-    }
+//    public static String getFormattedTime(int date, int hour, int minute) {
+//        DateFormat df = new SimpleDateFormat("第dd日HH:mm");
+//        Date d = new Date();
+//        d.setDate(date);
+//        d.setHours(hour);
+//        d.setMinutes(minute);
+//        return df.format(d);
+//    }
 
     /**
      * 同步配置文件
