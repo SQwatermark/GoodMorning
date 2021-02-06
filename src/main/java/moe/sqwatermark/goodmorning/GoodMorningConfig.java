@@ -52,7 +52,7 @@ public class GoodMorningConfig {
                         "@DATE@ will be replaced with the in game date,",
                         "\\u will be replaced with §.",
                         "You can add more than one random subtitles")
-                .translation("")
+                .translation("config.goodmorning.subtitle")
                 .define("subtitle", defaultSubtitles);
 
         COMMON_BUILDER.pop();

@@ -32,7 +32,9 @@ public class GoodMorning {
                     if (time % 24000L == 0) {
                         // 确定日期
                         int date = (int)(time / 24000L);
-                        if (GoodMorningConfig.ADD_ONE_DAY.get()) date += 1;
+                        if (GoodMorningConfig.ADD_ONE_DAY.get()) {
+                            date += 1;
+                        }
                         // 确定标题
                         String title = "";
                         List<String> titles = GoodMorningConfig.TITLE.get();
