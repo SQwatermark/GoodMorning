@@ -1,6 +1,6 @@
 package moe.sqwatermark.goodmorning;
 
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.play.server.STitlePacket;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
@@ -24,8 +24,8 @@ public class GoodMorning {
     @SubscribeEvent
     public static void onPlayerWakeUp(PlayerWakeUpEvent event) {
         if (GoodMorningConfig.SHOW.get()) {
-            if (event.getPlayer() instanceof ServerPlayerEntity) {
-                ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) event.getPlayer();
+            if (event.getPlayer() instanceof ServerPlayer) {
+                ServerPlayer serverPlayerEntity = (ServerPlayer) event.getPlayer();
                 // 在玩家进入服务器的一瞬间似乎connection是null的
                 if (serverPlayerEntity.connection != null) {
                     long time = serverPlayerEntity.world.getDayTime();
