@@ -1,6 +1,6 @@
 package moe.sqwatermark.goodmorning;
 
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetSubtitleTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
 import net.minecraft.server.level.ServerPlayer;
@@ -24,7 +24,7 @@ public class GoodMorning {
     @SubscribeEvent
     public static void onPlayerWakeUp(PlayerWakeUpEvent event) {
         if (GoodMorningConfig.SHOW.get()) {
-            if (event.getPlayer() instanceof ServerPlayer serverPlayerEntity) {
+            if (event.getEntity() instanceof ServerPlayer serverPlayerEntity) {
                 TimeParser parser = new TimeParser();
                 if (GoodMorningConfig.DAY_START_AT_MIDNIGHT.get()) parser.setDayStartAtMidnight();
                 MCCalender calender = parser.parse(serverPlayerEntity.getCommandSenderWorld().getDayTime());
@@ -52,8 +52,8 @@ public class GoodMorning {
                                 .replace("\\u", "§");
                     }
                     // 发送标题和副标题
-                    ClientboundSetTitleTextPacket spackettitle = new ClientboundSetTitleTextPacket(new TextComponent(title));
-                    ClientboundSetSubtitleTextPacket spacketsubtitle = new ClientboundSetSubtitleTextPacket(new TextComponent(subtitle));
+                    ClientboundSetTitleTextPacket spackettitle = new ClientboundSetTitleTextPacket(Component.literal(title));
+                    ClientboundSetSubtitleTextPacket spacketsubtitle = new ClientboundSetSubtitleTextPacket(Component.literal(subtitle));
                     serverPlayerEntity.connection.send(spackettitle);
                     serverPlayerEntity.connection.send(spacketsubtitle);
                 }

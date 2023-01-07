@@ -1,9 +1,9 @@
 modLoader="javafml" #mandatory
-loaderVersion="[37,)" #mandatory
+loaderVersion="[44,)" #mandatory
 license="MIT Licence"
 [[mods]] #mandatory
 modId="goodmorning" #mandatory
-version="1.18.2-1.0" #mandatory
+version="1.19.3-1.0" #mandatory
 displayName="Good Morning" #mandatory
 #logoFile="examplemod.png" #optional
 authors="SQwatermark" #optional
@@ -14,13 +14,13 @@ Show title on player wake up.
 [[dependencies.goodmorning]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
-    versionRange="[40,)" #mandatory
+    versionRange="[44,)" #mandatory
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.goodmorning]]
     modId="minecraft"
     mandatory=true
-    versionRange = "[1.18.2,)"
+    versionRange = "[1.19.3,)"
     ordering="NONE"
     side="BOTH"
