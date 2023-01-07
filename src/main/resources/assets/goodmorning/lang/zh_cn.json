@@ -1,6 +1,7 @@
 {
   "config.goodmorning.show": "启用模组",
   "config.goodmorning.addOneDay": "加一天",
+  "config.goodmorning.dayStartAtMidnight": "一天从午夜开始",
   "config.goodmorning.title": "标题",
   "config.goodmorning.subtitle": "副标题",
   "config.goodmorning.show.tooltip": "启用模组后,玩家起床时屏幕中央会显示信息",

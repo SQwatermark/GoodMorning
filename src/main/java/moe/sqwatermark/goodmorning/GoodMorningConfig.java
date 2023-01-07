@@ -10,6 +10,8 @@ public class GoodMorningConfig {
     public static ForgeConfigSpec COMMON_CONFIG;
     public static ForgeConfigSpec.BooleanValue SHOW;
     public static ForgeConfigSpec.BooleanValue ADD_ONE_DAY;
+
+    public static ForgeConfigSpec.BooleanValue DAY_START_AT_MIDNIGHT;
     public static ForgeConfigSpec.ConfigValue<List<String>> TITLE;
     public static ForgeConfigSpec.ConfigValue<List<String>> SUBTITLE;
 
@@ -29,6 +31,11 @@ public class GoodMorningConfig {
                 .translation("config.goodmorning.addOneDay")
                 .define("addOneDay", false);
 
+        DAY_START_AT_MIDNIGHT = COMMON_BUILDER
+                .comment("If true, a day will start at 00:00 but not 06:00, (useful when the mod somnia loaded)")
+                .translation("config.goodmorning.dayStartAtMidnight")
+                .define("dayStartAtMidnight", false);
+
         ArrayList<String> defaultTitles = new ArrayList<>();
         defaultTitles.add("早上好@PLAYER@");
         defaultTitles.add("今天真是个好天气");
@@ -36,8 +43,7 @@ public class GoodMorningConfig {
 
         TITLE = COMMON_BUILDER
                 .comment("The first line of the shown information,",
-                        "@PLAYER@ will be replaced with the player name,",
-                        "@DATE@ will be replaced with the in game date,",
+                        "Useful placeholders: @PLAYER@, @DATE@, @HOUR@, @MINUTE@",
                         "\\u will be replaced with §.",
                         "You can add more than one random titles")
                 .translation("config.goodmorning.title")
@@ -48,8 +54,7 @@ public class GoodMorningConfig {
 
         SUBTITLE = COMMON_BUILDER
                 .comment("The second line of the shown information,",
-                        "@PLAYER@ will be replaced with the player name,",
-                        "@DATE@ will be replaced with the in game date,",
+                        "Useful placeholders: @PLAYER@, @DATE@, @HOUR@, @MINUTE@",
                         "\\u will be replaced with §.",
                         "You can add more than one random subtitles")
                 .translation("config.goodmorning.subtitle")

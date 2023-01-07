@@ -1,6 +1,7 @@
 {
   "config.goodmorning.show": "Enable",
   "config.goodmorning.addOneDay": "Add one day",
+  "config.goodmorning.dayStartAtMidnight": "Day start at midnight",
   "config.goodmorning.title": "Title",
   "config.goodmorning.subtitle": "Subtitle",
   "config.goodmorning.show.tooltip": "Enable the mod",
